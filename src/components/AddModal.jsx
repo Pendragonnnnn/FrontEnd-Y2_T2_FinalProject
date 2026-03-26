@@ -51,12 +51,6 @@ export default function AddModal({ initial, onClose, onSave }) {
           </div>
         </div>
 
-        <div className="form-field">
-          <label className="form-label">Expected Schedule (optional)</label>
-          <input className="form-input" placeholder="e.g. 2 hrs/day, Mon–Wed evenings"
-            value={form.schedule} onChange={e => upd('schedule', e.target.value)} />
-        </div>
-
         <div className="form-actions">
           <button className="form-cancel" onClick={onClose}>Cancel</button>
           <button className="form-save" onClick={() => valid && onSave(form)} disabled={!valid}>
