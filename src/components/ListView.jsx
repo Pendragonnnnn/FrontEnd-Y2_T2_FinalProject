@@ -9,13 +9,14 @@ export default function ListView({
   doneCount, total, rate,
 }) {
   const q = search.toLowerCase()
+
   const filtered = assignments
     .filter(a => {
       if (q && !a.title.toLowerCase().includes(q) && !a.subject.toLowerCase().includes(q)) return false
-      if (filterSub    !== 'All' && a.subject    !== filterSub)  return false
-      if (filterDiff   !== 'All' && a.difficulty !== filterDiff) return false
-      if (filterStatus === 'Completed' && !a.completed)          return false
-      if (filterStatus === 'Active'    &&  a.completed)          return false
+      if (filterSub !== 'All' && a.subject !== filterSub) return false
+      if (filterDiff !== 'All' && a.difficulty !== filterDiff) return false
+      if (filterStatus === 'Completed' && !a.completed) return false
+      if (filterStatus === 'Active' && a.completed) return false
       if (filterStatus === 'Urgent') {
         const p = getPriority(a.dueDate, a.completed)
         if (p !== 'urgent' && p !== 'overdue') return false
@@ -29,47 +30,93 @@ export default function ListView({
 
   return (
     <div className="list-wrap">
+
+      {/* 🔥 Stats Box */}
       <div className="progress-overview">
-        <span className="progress-label">Overall Progress</span>
-        <div className="prog-bar"><div className="prog-bar-fill" style={{ width: `${rate}%` }} /></div>
-        <div className="prog-txt">{doneCount} / {total} done</div>
+        <div className="stats-row">
+          <div className="stat-box">
+            <div className="stat-val">{total}</div>
+            <div className="stat-label">TOTAL</div>
+          </div>
+          <div className="stat-box">
+            <div className="stat-val" style={{ color: '#34d399' }}>{doneCount}</div>
+            <div className="stat-label">COMPLETED</div>
+          </div>
+          <div className="stat-box">
+            <div className="stat-val" style={{ color: '#fbbf24' }}>{rate}%</div>
+            <div className="stat-label">RATE</div>
+          </div>
+        </div>
       </div>
 
+      {/* 📊 Progress Bar Box */}
+      <div className="progress-overview">
+        <div className="progress-card">
+          <div className="progress-header">
+            <span>Overall Progress</span>
+            <span>{doneCount} / {total} done</span>
+          </div>
+
+          <div className="prog-bar">
+            <div
+              className="prog-bar-fill"
+              style={{ width: `${rate}%` }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 🔍 Filters */}
       <div className="filter-bar">
-        <select className="filter-select" value={filterSub}    onChange={e => setFilterSub(e.target.value)}>
+        <select className="filter-select" value={filterSub} onChange={e => setFilterSub(e.target.value)}>
           <option value="All">All Subjects</option>
           {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
+
         <select className="filter-select" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="All">All Status</option>
           <option value="Active">Active</option>
           <option value="Completed">Completed</option>
           <option value="Urgent">Urgent / Overdue</option>
         </select>
-        <select className="filter-select" value={filterDiff}   onChange={e => setFilterDiff(e.target.value)}>
+
+        <select className="filter-select" value={filterDiff} onChange={e => setFilterDiff(e.target.value)}>
           <option value="All">All Difficulties</option>
           <option value="Easy">Easy</option>
           <option value="Medium">Medium</option>
           <option value="Hard">Hard</option>
         </select>
-        <span className="filter-count">{filtered.length} result{filtered.length !== 1 ? 's' : ''}</span>
+
+        <span className="filter-count">
+          {filtered.length} result{filtered.length !== 1 ? 's' : ''}
+        </span>
       </div>
 
+      {/* 📚 Content */}
       {filtered.length === 0 ? (
         <div className="empty">
           <div className="empty-ic">📚</div>
           <div className="empty-t">No assignments found</div>
-          <div className="empty-d">Add your first assignment or adjust the filters above</div>
+          <div className="empty-d">
+            Add your first assignment or adjust the filters above
+          </div>
         </div>
       ) : (
         <div className="cards-grid">
           {filtered.map(a => (
-            <AssignmentCard key={a.id} assignment={a}
-              onToggle={onToggle} onDelete={onDelete} onEdit={onEdit}
-              onProgress={onProgress} onAttach={onAttach} />
+            <AssignmentCard
+              key={a.id}
+              assignment={a}
+              onToggle={onToggle}
+              onDelete={onDelete}
+              onEdit={onEdit}
+              onProgress={onProgress}
+              onAttach={onAttach}
+            />
           ))}
         </div>
       )}
+
     </div>
   )
 }

@@ -1,6 +1,7 @@
+import React from 'react'
 import { getPriority, countdownText, formatDate, DIFF_COLORS, PRIO_COLORS } from '../utils/helpers'
 
-export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEdit, onProgress, onAttach }) {
+export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEdit, onAttach }) {
   const prio      = getPriority(a.dueDate, a.completed)
   const prioColor = PRIO_COLORS[prio]
   const diffColor = DIFF_COLORS[a.difficulty]
@@ -22,20 +23,7 @@ export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEd
 
       <div className={`card-title ${a.completed ? 'struck' : ''}`}>{a.title}</div>
       <div className="card-countdown" style={{ color: prioColor }}>{countdownText(a.dueDate, a.completed)} · {formatDate(a.dueDate)}</div>
-      {a.schedule && <div className="card-schedule">📅 {a.schedule}</div>}
-
-      <div className="card-prog">
-        <div className="card-prog-head">
-          <span>Progress</span>
-          <span style={{ color: prioColor }}>{a.progress}%</span>
-        </div>
-        <div className="card-prog-track">
-          <div className="card-prog-fill" style={{ width: `${a.progress}%`, background: prioColor }} />
-        </div>
-        <input type="range" min={0} max={100} value={a.progress} className="card-prog-range"
-          onChange={e => onProgress(a.id, parseInt(e.target.value))} />
-      </div>
-
+      
       {a.files?.length > 0 && (
         <div className="card-files">
           {a.files.map((f, i) => <span key={i} className="file-chip">📎 {f}</span>)}
