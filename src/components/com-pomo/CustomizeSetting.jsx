@@ -1,29 +1,28 @@
 
 import { useState } from "react";
-function CustomizeSetting() {
+import {urls} from "../../assets/data";
+function CustomizeSetting({ chBg}) {
     const [isOpen, setOpen] = useState(false);
-    const [selected, setSelected] = useState("hi");
-    const pictures = [
-        { name: "hi" }, { name: "hello"}, {name : "a"}, { name: "b"}, { name: "c"}, { name: "d"}
-        
-    ];
+    const [selected, setSelected] = useState(urls[0].name);
+    
     
     return (
         
         <>
         <div className = "flex flex-col justify-center items-left gap-1 w-full text-left !pl-5 ">
-        <span>Select Theme</span>
-        <button className = "border border-gray-300 !p-2 cursor-pointer w-full text-left gap-5"  onClick={() => {setOpen(!isOpen);}}>
-            <span>{selected}</span>
-            <i className="fa-solid fa-caret-up !pl-auto"></i>
-        </button>
+        <span className="!mb-1">Select Theme</span>
+        <div className = " flex justify-center items-center  border border-gray-300 !p-2 cursor-pointer w-full text-left gap-5"  onClick={() => {setOpen(!isOpen);}}>
+            <span className = "text-lg"  >{selected}</span>
+            <i className="fa-solid fa-caret-up !ml-auto "></i>
+        </div>
             { isOpen && 
             <ul className = "border ">
-                {pictures.map((option, index) => (
-                    <li key = {index} className = "!p-2 hover:bg-transparent cursor-pointer" onClick={() => {
+                {urls.map((option, index) => (
+                    <li key = {index} className = "!p-2 text-lg hover:bg-transparent cursor-pointer" onClick={() => {
 
                         setSelected(option.name);
                         setOpen(false);
+                        chBg(index);
                         
                     }}>
                         {option.name}

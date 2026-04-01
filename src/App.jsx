@@ -8,7 +8,7 @@ import ListView from './components/ListView'
 import CalendarView from './components/CalendarView'
 import StatsView from './components/StatsView'
 import AddModal from './components/AddModal'
-import Pomodoro from './components/Pomodoro'
+import Pomodoro from './components/com-pomo/Pomodoro'
 
 function loadPrem() {
   try { return JSON.parse(localStorage.getItem(PREMIUM_KEY) || 'false') } catch { return false }

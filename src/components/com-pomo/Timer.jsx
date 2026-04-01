@@ -1,59 +1,36 @@
 import { useState, useEffect, useRef } from "react";
-function Pomodoro() {
-  const [isRunning, setRunning] = useState(false);
-  const [second, setSecond] = useState(1800);
-  const id = useRef(null); // Use null for initial ref
-
-  useEffect(() => {
-    if (isRunning) {
-      // Correct Syntax: setInterval(callback, delay)
-      id.current = setInterval(() => {
-        setSecond((prev) => (prev > 0 ? prev - 1 : 0));
-      }, 1000);
-
-      //  Cleanup when stopping or unmounting
-      return () => clearInterval(id.current);
-    }
-  }, [isRunning]);
-
-  function start() {
-    setRunning(true);
-  }
-  function stop() {
-    setRunning(false);
-  }
-  function reset() {
-    setRunning(false);
-    setSecond(1800); // Back to original time
-  }
-
-  function displayTime() {
-    // Correct Math Logic
-    const h = Math.floor(second / 3600);
-    const m = Math.floor((second % 3600) / 60);
-    const s = second % 60;
-
-    const hours = String(h).padStart(2, "0");
-    const mins = String(m).padStart(2, "0");
-    const seconds = String(s).padStart(2, "0");
-
-    return `${hours} : ${mins} : ${seconds}`;
-  }
-
+import {modes} from "../../assets/data";
+function Timer({time,actualTime}) {
+ function calMinToSecond( min ){
+  return min*60;
+ }
+ function calSecondToMin( sec) {
+  return sec/60;
+ }
   return (
     <>
-    <div>
-        <button onClick={() => setSecond(1800)}>pomodoro</button>
-        <button onClick={ ()=> setSecond(300)}>short break</button>
-        <button onClick={() => setSecond(600)}>long break</button>
+      <div className = "flex flex-col justify-start items-left gap-1 w-full text-left !pl-5 md:!pl-1 text-xl ">
+        <div className=" flex justify-between items-center gap-5 w-full "> 
+          {modes.map((mode, index) => (
+          <div  key = {index} className = "flex flex-col justify-center items-start gap-3 text-left text-xl">
+            <label htmlFor={mode.name}>{mode.name}  </label>
+            <input type="number" min={1} max={59}  className="w-full border !px-1"
+
+            value={calSecondToMin(actualTime[index])} onChange={(e) => { 
+              console.log("time:" +calSecondToMin(actualTime[index]));
+               time( index, calMinToSecond(Number(e.target.value)));
+               console.log( (e.target.value));
+               
+            }} />
+          </div>
+          ))}
+
+        </div>
+        <p className = "!mt-5">Note: Changes will be saved when you click the "save" button.</p>
     </div>
-      <h1>{displayTime()}</h1>
-      <div className="flex flex-row justify-center align-center gap-2 ">
-        <button className = " bg-green-400 " onClick={start}>start</button>
-        <button onClick={stop}>stop</button>
-        <button onClick={reset}>reset</button>
-      </div>
     </>
+
+   
   );
 }
-export default Pomodoro;
+export default Timer;
