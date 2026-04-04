@@ -215,3 +215,35 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
   .prem-content { grid-template-columns: 1fr; }
   .feat-grid    { grid-template-columns: 1fr; }
 }
+
+/* --- Adjust Overall Progress spacing --- */
+.progress-overview {
+  margin-bottom: 10px; /* more space between progress and stats */
+}
+
+/* --- Compact Stats Boxes --- */
+.stats-grid {
+  display: flex;
+  gap: 15px;          /* tighter spacing between boxes */
+  margin-bottom: 10px; /* spacing before next section */
+}
+
+.stat-card {
+  flex: 1;
+  padding: 10px;       /* smaller box padding */
+  border-radius: 8px;
+  background: var(--surface);
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05); /* subtle shadow */
+}
+
+.stat-val {
+  font-size: 20px;     /* slightly smaller number */
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 10px;     /* smaller label */
+  color: var(--muted);
+  margin-top: 5px;
+}

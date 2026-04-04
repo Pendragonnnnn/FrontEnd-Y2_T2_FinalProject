@@ -36,11 +36,6 @@ export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEd
         <button className={`complete-btn ${a.completed ? 'yes' : ''}`} onClick={() => onToggle(a.id)}>
           {a.completed ? '✓ Completed' : '○ Mark Complete'}
         </button>
-        <label className="attach-btn">
-          📎 Attach
-          <input type="file" style={{ display: 'none' }}
-            onChange={e => { if (e.target.files[0]) onAttach(a.id, e.target.files[0].name); e.target.value = '' }} />
-        </label>
       </div>
     </div>
   )
