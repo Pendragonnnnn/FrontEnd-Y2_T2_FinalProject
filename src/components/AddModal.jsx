@@ -49,9 +49,8 @@ export default function AddModal({
           <input
             className="form-input"
             value={form.title}
-            onChange={e =>
-              upd('title', e.target.value)
-            }
+            placeholder="Please Enter Your Title!"
+            onChange={e => upd('title', e.target.value)}
           />
         </div>
 
@@ -60,9 +59,8 @@ export default function AddModal({
           <input
             className="form-input"
             value={form.subject}
-            onChange={e =>
-              upd('subject', e.target.value)
-            }
+            placeholder="Please Enter Your Subject!"
+            onChange={e => upd('subject', e.target.value)}
           />
         </div>
 
