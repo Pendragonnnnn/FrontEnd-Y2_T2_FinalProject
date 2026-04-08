@@ -1,12 +1,14 @@
 import React from 'react'
 import AssignmentCard from './AssignmentCard'
-import { SUBJECTS, getPriority } from '../utils/helpers'
+import { getPriority, SUBJECTS as DEFAULT_SUBJECTS } from '../utils/helpers'
+import { useSubjects } from '../utils/useSubjects'
 
 export default function ListView({
   assignments, search,
   filterSub, setFilterSub, filterStatus, setFilterStatus, filterDiff, setFilterDiff,
-  onToggle, onDelete, onEdit, onProgress, onAttach,
+  onToggle, onDelete, onEdit, onProgress
 }) {
+  const { subjects } = useSubjects()
   const total     = assignments.length
   const doneCount = assignments.filter(a => a.completed).length
   const rate      = total > 0 ? Math.round((doneCount / total) * 100) : 0
@@ -44,6 +46,18 @@ export default function ListView({
 
       {/* --- Filter Bar --- */}
       <div className="filter-bar">
+        <select
+          className="filter-select"
+          value={filterSub}
+          onChange={(e) => setFilterSub(e.target.value)}
+        >
+          <option value="All">All Subjects</option>
+          {subjects.map((subject) => (
+            <option key={subject} value={subject}>
+              {subject}
+            </option>
+          ))}
+        </select>
         <select className="filter-select" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="All">All Status</option>
           <option value="Active">Active</option>
@@ -58,6 +72,8 @@ export default function ListView({
         </select>
       </div>
 
+     
+
       {/* --- Assignment Cards --- */}
       {filtered.length === 0 ? (
         <div className="empty">
@@ -70,7 +86,7 @@ export default function ListView({
           {filtered.map(a => (
             <AssignmentCard key={a.id} assignment={a}
               onToggle={onToggle} onDelete={onDelete} onEdit={onEdit}
-              onProgress={onProgress} onAttach={onAttach} />
+              onProgress={onProgress}  />
           ))}
         </div>
       )}

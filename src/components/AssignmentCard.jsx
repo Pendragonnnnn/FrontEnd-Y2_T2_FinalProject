@@ -1,7 +1,7 @@
 import React from 'react'
 import { getPriority, countdownText, formatDate, DIFF_COLORS, PRIO_COLORS } from '../utils/helpers'
 
-export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEdit, onAttach }) {
+export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEdit }) {
   const prio      = getPriority(a.dueDate, a.completed)
   const prioColor = PRIO_COLORS[prio]
   const diffColor = DIFF_COLORS[a.difficulty]

@@ -14,7 +14,7 @@ export function useAssignments() {
 
   useEffect(() => {
     const cutoff = Date.now() - 30 * 86400000
-    setAssignments(prev => prev.filter(a => !a.completed || new Date(a.dueDate + 'T00:00:00') > cutoff))
+    setAssignments(prev => prev.filter(a => !a.completed || new Date(a.dueDate ) > cutoff))
   }, [])
 
   const addAssignment = data =>
@@ -32,5 +32,5 @@ export function useAssignments() {
   const attachFile = (id, fileName) =>
     setAssignments(prev => prev.map(a => a.id === id ? { ...a, files: [...(a.files || []), fileName] } : a))
 
-  return { assignments, addAssignment, updateAssignment, deleteAssignment, toggleComplete, attachFile }
+  return { assignments, addAssignment, updateAssignment, deleteAssignment, toggleComplete}
 }
