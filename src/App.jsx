@@ -7,8 +7,8 @@ import Sidebar from './components/Sidebar'
 import ListView from './components/ListView'
 import CalendarView from './components/CalendarView'
 import StatsView from './components/StatsView'
-import PremiumView from './components/PremiumView'
 import AddModal from './components/AddModal'
+import Pomodoro from './components/com-pomo/Pomodoro'
 
 function loadPrem() {
   try { return JSON.parse(localStorage.getItem(PREMIUM_KEY) || 'false') } catch { return false }
@@ -73,12 +73,7 @@ export default function App() {
           {view === 'calendar' && <CalendarView assignments={assignments} month={calMonth} onMonthChange={setCalMonth} />}
           {view === 'stats'    && <StatsView assignments={assignments} />}
           {view === 'premium'  && (
-            <PremiumView
-              isPrem={isPrem} onUnlock={handleUnlockPrem} assignments={assignments}
-              mode={pomodoro.mode} setMode={pomodoro.setMode}
-              timeLeft={pomodoro.timeLeft} running={pomodoro.running}
-              setRunning={pomodoro.setRunning} cycles={pomodoro.cycles}
-              onReset={pomodoro.reset} pick={randomPick} onPick={pickRandom}
+            <Pomodoro
             />
           )}
         </main>
