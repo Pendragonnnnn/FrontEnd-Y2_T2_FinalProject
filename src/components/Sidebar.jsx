@@ -1,6 +1,6 @@
 import React from 'react'
 const NAV = [['list','≡','Assignments'],['calendar','▦','Calendar'],['stats','≈','Statistics']]
-export default function Sidebar({ view, onView, rate, isPrem }) {
+export default function Sidebar({ view, onView, rate}) {
   return (
     <nav className="sidebar">
       <div className="sb-section">Views</div>
@@ -10,10 +10,9 @@ export default function Sidebar({ view, onView, rate, isPrem }) {
         </button>
       ))}
       <div className="sb-divider" />
-      <div className="sb-section">Premium</div>
-      <button className={`nav-btn ${view === 'premium' ? 'active' : ''}`} onClick={() => onView('premium')}>
-        <span className="nav-ic">★</span>Premium
-        {!isPrem && <span className="pro-badge">PRO</span>}
+      <div className="sb-section">Pomodoro</div>
+      <button className={`nav-btn ${view === 'pomodoro' ? 'active' : ''}`} onClick={() => onView('pomodoro')}>
+        <span className="nav-ic">★</span>Pomodoro Mode
       </button>
       <div className="sb-divider" />
       <div className="sb-progress">

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useAssignments } from './utils/useAssignments'
-import { usePomodoro } from './utils/usePomodoro'
-import { PREMIUM_KEY } from './utils/helpers'
+
 import Topbar from './components/Topbar'
 import Sidebar from './components/Sidebar'
 import ListView from './components/ListView'
@@ -10,13 +9,9 @@ import StatsView from './components/StatsView'
 import AddModal from './components/AddModal'
 import Pomodoro from './components/com-pomo/Pomodoro'
 
-function loadPrem() {
-  try { return JSON.parse(localStorage.getItem(PREMIUM_KEY) || 'false') } catch { return false }
-}
 
 export default function App() {
-  const { assignments, addAssignment, updateAssignment, deleteAssignment, toggleComplete, updateProgress } = useAssignments()
-  const pomodoro = usePomodoro()
+  const { assignments, addAssignment, updateAssignment, deleteAssignment, toggleComplete, updateProgress, attachFile } = useAssignments()
 
   const [view, setView]                 = useState('list')
   const [showModal, setShowModal]       = useState(false)
@@ -25,7 +20,6 @@ export default function App() {
   const [filterSub, setFilterSub]       = useState('All')
   const [filterStatus, setFilterStatus] = useState('All')
   const [filterDiff, setFilterDiff]     = useState('All')
-  const [isPrem, setIsPrem]             = useState(loadPrem)
   const [calMonth, setCalMonth]         = useState(new Date())
   const [randomPick, setRandomPick]     = useState(null)
   const [theme, setTheme] = useState('dark')
@@ -39,7 +33,6 @@ export default function App() {
   }
 
   
-  const handleUnlockPrem = () => { setIsPrem(true); localStorage.setItem(PREMIUM_KEY, 'true') }
   const openAdd    = () => { setEditing(null); setShowModal(true) }
   const openEdit   = a  => { setEditing(a); setShowModal(true) }
   const closeModal = () => { setShowModal(false); setEditing(null) }
@@ -57,7 +50,7 @@ export default function App() {
     <div className="app">
       <Topbar search={search} onSearch={setSearch} doneCount={doneCount} total={total} onAdd={openAdd}  theme={theme} onToggleTheme={toggleTheme}/>
       <div className="body">
-        <Sidebar view={view} onView={setView} rate={rate} isPrem={isPrem} />
+        <Sidebar view={view} onView={setView} rate={rate}/>
         <main className="main">
           {view === 'list' && (
             <ListView
@@ -72,7 +65,7 @@ export default function App() {
           )}
           {view === 'calendar' && <CalendarView assignments={assignments} month={calMonth} onMonthChange={setCalMonth} />}
           {view === 'stats'    && <StatsView assignments={assignments} />}
-          {view === 'premium'  && (
+          {view === 'pomodoro'  && (
             <Pomodoro
             />
           )}

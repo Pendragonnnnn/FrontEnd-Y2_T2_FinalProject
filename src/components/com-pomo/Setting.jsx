@@ -34,9 +34,9 @@ function Setting({ bg, isOpen, newTime, currentTime }) {
       {/* body */}
       <div className = "flex justify-start items-center gap-3  w-full ">
         {/* sidebar */}
-          <div className = "flex flex-col justify-center !mb-auto !px-5 md:!px-0 items-start gap-10  ">
+          <div className = "flex flex-col justify-center !mb-auto !px-5 md:!px-0 items-start gap-10 sm:gap-2 md:gap-5  ">
             {setting.map((option, index) => (
-               <button key = { index } className = {` !py-3 !px-7 cursor-pointer hover:border-b 
+               <button key = { index } className = {` !py-3 !px-7 cursor-pointer hover:border-b md:!px-5 sm:!px-0 
                  ${settingMode === option.name ? "border-b": " " } `} 
                onClick={() => setSettingMode(option.name)} > 
                 {option.name} </button> 
