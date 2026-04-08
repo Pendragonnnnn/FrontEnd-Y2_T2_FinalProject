@@ -33,20 +33,6 @@ export default function ListView({
   return (
     <div className="list-wrap">
 
-      {/* --- Stats Boxes --- */}
-      <div className="stats-grid">
-        {[
-          [total,      'Total',           'var(--text)'],
-          [doneCount,  'Completed',       '#34d399'],
-          [rate + '%', 'Completion Rate', '#daa84a'],
-        ].map(([val, label, color]) => (
-          <div key={label} className="stat-card">
-            <div className="stat-val" style={{ color }}>{val}</div>
-            <div className="stat-label">{label}</div>
-          </div>
-        ))}
-      </div>
-
       {/* --- Overall Progress --- */}
       <div className="progress-overview">
         <span className="progress-label">Overall Progress</span>

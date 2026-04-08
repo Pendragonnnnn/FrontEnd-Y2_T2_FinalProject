@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { DIFF_COLORS } from '../utils/helpers'
+import { DIFF_COLORS, SUBJECTS as DEFAULT_SUBJECTS } from '../utils/helpers'
+import { useSubjects } from '../utils/useSubjects'
 
 export default function AddModal({
   initial,
   onClose,
   onSave,
 }) {
+  const { subjects, addSubject, removeSubject } = useSubjects()
   const today = new Date()
     .toISOString()
     .split('T')[0]
@@ -18,11 +20,21 @@ export default function AddModal({
       initial?.difficulty || 'Medium',
   })
 
+  const [newSubject, setNewSubject] = useState('')
+
   const upd = (key, value) =>
     setForm(prev => ({
       ...prev,
       [key]: value,
     }))
+
+  const addNewSubject = () => {
+    if (newSubject.trim()) {
+      addSubject(newSubject.trim())
+      upd('subject', newSubject.trim())
+      setNewSubject('')
+    }
+  }
 
   const valid =
     form.title.trim() && form.subject.trim()
@@ -56,12 +68,47 @@ export default function AddModal({
 
         <div className="form-field">
           <label>Subject *</label>
-          <input
+          <select
             className="form-input"
             value={form.subject}
-            placeholder="Please Enter Your Subject!"
             onChange={e => upd('subject', e.target.value)}
-          />
+          >
+            <option value="">Select a subject</option>
+            {subjects.map(subject => (
+              <option key={subject} value={subject}>{subject}</option>
+            ))}
+          </select>
+          {form.subject && !DEFAULT_SUBJECTS.includes(form.subject) && (
+            <button
+              type="button"
+              className="form-cancel"
+              onClick={() => {
+                removeSubject(form.subject)
+                upd('subject', '')
+              }}
+              style={{ marginTop: '8px', padding: '4px 8px', fontSize: '12px' }}
+            >
+              Remove "{form.subject}" from list
+            </button>
+          )}
+          <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+            <input
+              className="form-input"
+              value={newSubject}
+              placeholder="Add new subject"
+              onChange={e => setNewSubject(e.target.value)}
+              style={{ flex: 1 }}
+            />
+            <button
+              type="button"
+              className="form-save"
+              onClick={addNewSubject}
+              disabled={!newSubject.trim()}
+              style={{ padding: '8px 16px', fontSize: '14px' }}
+            >
+              Add
+            </button>
+          </div>
         </div>
 
         <div className="form-field">
