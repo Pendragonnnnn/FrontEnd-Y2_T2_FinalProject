@@ -7,12 +7,12 @@ function Timer({time,actualTime}) {
  function calSecondToMin( sec) {
   return sec/60;
  }
-  return (
+  return (  
     <>
-      <div className = "flex flex-col justify-start items-left gap-1 w-full text-left !pl-5 md:!pl-1 text-xl ">
-        <div className=" flex justify-between items-center gap-5 w-full "> 
+      <div className = "flex flex-col justify-start items-left gap-1 w-full text-left !pl-5 md:!pl-1 text-xl sm:!pl-1 md:!pl-2 ">
+        <div className=" flex justify-between items-center gap-5 w-full sm:flex-col md:flex-row  "> 
           {modes.map((mode, index) => (
-          <div  key = {index} className = "flex flex-col justify-center items-start gap-3 text-left text-xl">
+          <div  key = {index} className = "flex flex-col justify-center items-start gap-3 text-left text-xl ">
             <label htmlFor={mode.name}>{mode.name}  </label>
             <input type="number" min={1} max={59}  className="w-full border !px-1"
 

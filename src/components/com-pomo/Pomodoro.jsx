@@ -13,13 +13,13 @@ function Pomodoro() {
   ]);
   const id = useRef(null); // Use null for initial ref
   const [indexPic, setIndexPic] = useState(0);
-
   const choice = [
     { option: "start"}, {option: "reset"}
   ];  
   const fullScreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
+    if (!document.fullscreenElement) { // root web page entire
+      
+      document.documentElement.requestFullscreen(); // root like head or body tag
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -31,9 +31,6 @@ function Pomodoro() {
       //  setInterval(callback, delay)
       id.current = setInterval(() => {
         setSecond((prev) => (prev > 0 ? prev - 1 : 0));
-        if ( second == 0) {
-          music.play();
-        }
       }, 1000);
       return () => clearInterval(id.current);
     }
@@ -41,6 +38,7 @@ function Pomodoro() {
 
   useEffect ( () => {
     setSecond( timer.find((mode) => mode.name === selectMode)?.time)
+    setRunning(false);
   }, [timer]);
   function start() {
     setRunning(true);
@@ -65,10 +63,10 @@ function Pomodoro() {
   }
   return (
     <>
-    <div className = {`bg-cover h-screen  flex flex-col justify-center items-center gap-20 z-0 `}
+    <div className = {`bg-cover h-screen  flex flex-col justify-center items-center gap-20 z-0 w-screen `}
      style={ {backgroundImage: `url('${urls[indexPic].url}')`}} alt = "background" >
       <div className = "flex flex-col justify-center items-center gap-15 w-4/5 " >
-        <div className = "flex justify-center items-center gap-8 w-full h-auto   " >
+        <div className = "flex justify-center items-center gap-8 w-full h-auto sm:flex-col md:flex-row   " >
           {timer.map((mode, index) => (
             <button key = {index} className = { ` !py-3 !px-7 text-3xl border rounded-full bg-transparent mt-7  border-black hover:text-black hover:bg-white cursor-pointer
                ${ selectMode === mode.name ? "bg-white text-black" : "bg-green "}`} 
