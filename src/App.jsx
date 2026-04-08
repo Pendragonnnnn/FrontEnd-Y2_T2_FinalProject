@@ -59,7 +59,7 @@ export default function App() {
               filterStatus={filterStatus} setFilterStatus={setFilterStatus}
               filterDiff={filterDiff}     setFilterDiff={setFilterDiff}
               onToggle={toggleComplete} onDelete={deleteAssignment}
-              onEdit={openEdit} onProgress={updateProgress} onAttach={attachFile}
+              onEdit={openEdit} onProgress={updateProgress} 
               doneCount={doneCount} total={total} rate={rate}
             />
           )}

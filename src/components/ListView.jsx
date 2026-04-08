@@ -1,13 +1,18 @@
 import React from 'react'
 import AssignmentCard from './AssignmentCard'
-import { SUBJECTS, getPriority } from '../utils/helpers'
+import { getPriority, SUBJECTS as DEFAULT_SUBJECTS } from '../utils/helpers'
+import { useSubjects } from '../utils/useSubjects'
 
 export default function ListView({
   assignments, search,
   filterSub, setFilterSub, filterStatus, setFilterStatus, filterDiff, setFilterDiff,
-  onToggle, onDelete, onEdit, onProgress, onAttach,
-  doneCount, total, rate,
+  onToggle, onDelete, onEdit, onProgress
 }) {
+  const { subjects } = useSubjects()
+  const total     = assignments.length
+  const doneCount = assignments.filter(a => a.completed).length
+  const rate      = total > 0 ? Math.round((doneCount / total) * 100) : 0
+
   const q = search.toLowerCase()
   const filtered = assignments
     .filter(a => {
@@ -29,16 +34,29 @@ export default function ListView({
 
   return (
     <div className="list-wrap">
+
+      {/* --- Overall Progress --- */}
       <div className="progress-overview">
         <span className="progress-label">Overall Progress</span>
-        <div className="prog-bar"><div className="prog-bar-fill" style={{ width: `${rate}%` }} /></div>
-        <div className="prog-txt">{doneCount} / {total} done</div>
+        <div className="prog-bar">
+        <div className="prog-bar-fill" style={{ width: `${rate}%` }}></div>
+      </div>
+      <div className="prog-txt">{doneCount} / {total} done</div>
       </div>
 
+      {/* --- Filter Bar --- */}
       <div className="filter-bar">
-        <select className="filter-select" value={filterSub}    onChange={e => setFilterSub(e.target.value)}>
+        <select
+          className="filter-select"
+          value={filterSub}
+          onChange={(e) => setFilterSub(e.target.value)}
+        >
           <option value="All">All Subjects</option>
-          {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+          {subjects.map((subject) => (
+            <option key={subject} value={subject}>
+              {subject}
+            </option>
+          ))}
         </select>
         <select className="filter-select" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="All">All Status</option>
@@ -52,9 +70,11 @@ export default function ListView({
           <option value="Medium">Medium</option>
           <option value="Hard">Hard</option>
         </select>
-        <span className="filter-count">{filtered.length} result{filtered.length !== 1 ? 's' : ''}</span>
       </div>
 
+     
+
+      {/* --- Assignment Cards --- */}
       {filtered.length === 0 ? (
         <div className="empty">
           <div className="empty-ic">📚</div>
@@ -66,7 +86,7 @@ export default function ListView({
           {filtered.map(a => (
             <AssignmentCard key={a.id} assignment={a}
               onToggle={onToggle} onDelete={onDelete} onEdit={onEdit}
-              onProgress={onProgress} onAttach={onAttach} />
+              onProgress={onProgress}  />
           ))}
         </div>
       )}

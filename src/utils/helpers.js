@@ -1,8 +1,4 @@
-export const SUBJECTS = [
-  'Math', 'Science', 'English', 'History',
-  'Computer Science', 'Physics', 'Chemistry',
-  'Biology', 'Art', 'Other',
-]
+export const SUBJECTS = []
 
 export const DIFF_COLORS = {
   Easy: '#34d399',
