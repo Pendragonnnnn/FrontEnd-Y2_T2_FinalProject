@@ -63,14 +63,12 @@ function Setting({ bg, isOpen, newTime, currentTime }) {
                 
               ]);
 
-              isOpen(false);
+              
             } else if ( opt.name === "reset") {
               newTime( resetTime);
               setCustomizeTime ( [resetTime[0].time, resetTime[1].time, resetTime[2].time]);
-            } else {
-
+            } 
               isOpen(false);
-            }
           }}
            >
             {opt.name}

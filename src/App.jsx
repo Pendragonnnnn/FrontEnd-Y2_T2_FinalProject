@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useAssignments } from './utils/useAssignments'
-
 import Topbar from './components/Topbar'
 import Sidebar from './components/Sidebar'
 import ListView from './components/ListView'
@@ -9,9 +8,9 @@ import StatsView from './components/StatsView'
 import AddModal from './components/AddModal'
 import Pomodoro from './components/com-pomo/Pomodoro'
 
-
 export default function App() {
   const { assignments, addAssignment, updateAssignment, deleteAssignment, toggleComplete, updateProgress, attachFile } = useAssignments()
+  
 
   const [view, setView]                 = useState('list')
   const [showModal, setShowModal]       = useState(false)
@@ -21,7 +20,7 @@ export default function App() {
   const [filterStatus, setFilterStatus] = useState('All')
   const [filterDiff, setFilterDiff]     = useState('All')
   const [calMonth, setCalMonth]         = useState(new Date())
-  const [randomPick, setRandomPick]     = useState(null)
+  const [sidebarOpen, setSidebarOpen]  = useState(false);
   const [theme, setTheme] = useState('dark')
 
   const toggleTheme = () => {
@@ -31,16 +30,12 @@ export default function App() {
       return next
     })
   }
-
+  const  mainContent = document.getElementById('main');
   
   const openAdd    = () => { setEditing(null); setShowModal(true) }
   const openEdit   = a  => { setEditing(a); setShowModal(true) }
   const closeModal = () => { setShowModal(false); setEditing(null) }
   const handleSave = data => { editing ? updateAssignment(editing.id, data) : addAssignment(data); closeModal() }
-  const pickRandom = () => {
-    const pool = assignments.filter(a => !a.completed)
-    if (pool.length) setRandomPick(pool[Math.floor(Math.random() * pool.length)])
-  }
 
   const doneCount = assignments.filter(a => a.completed).length
   const total     = assignments.length
@@ -48,10 +43,13 @@ export default function App() {
 
   return (
     <div className="app">
-      <Topbar search={search} onSearch={setSearch} doneCount={doneCount} total={total} onAdd={openAdd}  theme={theme} onToggleTheme={toggleTheme}/>
+      <Topbar search={search} onSearch={setSearch} doneCount={doneCount} total={total} onAdd={openAdd}  theme={theme} onToggleTheme={toggleTheme} 
+      onMenu={() => {setSidebarOpen(true) ,console.log( sidebarOpen)
+      }} />
       <div className="body">
-        <Sidebar view={view} onView={setView} rate={rate}/>
-        <main className="main">
+        <Sidebar view={view} onView={setView} rate={rate}  isOpen = {sidebarOpen}
+              onClose = { () => setSidebarOpen(false)} />
+        <main className="main" id = "main">
           {view === 'list' && (
             <ListView
               assignments={assignments} search={search}
@@ -59,17 +57,15 @@ export default function App() {
               filterStatus={filterStatus} setFilterStatus={setFilterStatus}
               filterDiff={filterDiff}     setFilterDiff={setFilterDiff}
               onToggle={toggleComplete} onDelete={deleteAssignment}
-              onEdit={openEdit} onProgress={updateProgress} 
+              onEdit={openEdit} onProgress={updateProgress} onAttach={attachFile}
               doneCount={doneCount} total={total} rate={rate}
             />
           )}
           {view === 'calendar' && <CalendarView assignments={assignments} month={calMonth} onMonthChange={setCalMonth} />}
           {view === 'stats'    && <StatsView assignments={assignments} />}
-          {view === 'pomodoro'  && (
-            <Pomodoro
-            />
-          )}
+          {view === 'pomodoro'  && <Pomodoro  main = {mainContent}/>  }
         </main>
+        
       </div>
       {showModal && <AddModal initial={editing} onClose={closeModal} onSave={handleSave} />}
     </div>

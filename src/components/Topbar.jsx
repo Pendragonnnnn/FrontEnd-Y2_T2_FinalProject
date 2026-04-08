@@ -1,7 +1,8 @@
 import React from 'react'
-export default function Topbar({ search, onSearch, onAdd, theme, onToggleTheme }) {
+export default function Topbar({ search, onSearch, onAdd, theme, onToggleTheme, onMenu }) {
   return (
     <header className="topbar">
+      <i className="fa-solid fa-bars cursor-pointer text-xl " id = "hamburger-btn"  onClick={() => onMenu()}></i>
       <div className="logo">Scholar <span>— Smart Assignment Tracker</span></div>
       <div className="search-wrap">
         <span className="search-ic">⌕</span>
