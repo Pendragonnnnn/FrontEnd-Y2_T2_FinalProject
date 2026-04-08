@@ -26,17 +26,17 @@ function Setting({ bg, isOpen, newTime, currentTime }) {
   
     return (
         <>
-        <div className = "   fixed left-0  top-0 min-h-4/5 bg-black/50  z-10 flex justify-center items-center w-screen  text-white  round-2xl gap-2 !p-2   "> 
-      <div className = "bg-black  lg:w-3/4 md:w-8/10 !w-1/2  border h-1/2 text-xl rounded-2xl flex flex-col justify-center items-center gap-2 sm:flex-col  "> 
+        <div className = " fixed  min-h-full bg-black/30  z-10 flex justify-center items-center w-full  text-white  rounded-2xl gap-2 !p-2 sm:w-9/10   " > 
+      <div className = "bg-black w-[95vw] sm:w-8/10 lg:w-3/4 md:w-5/10 border h-1/2 text-xl rounded-2xl flex flex-col justify-center items-center gap-2 sm:flex-col  "> 
     {/* header */}
-      <button className = "!ml-auto !px-5 !py-2 cursor-pointer hover:font-bold hover:round-2xl md:!px-2" onClick = { () => isOpen(false)}>
+      <button className = "!ml-auto !px-4 !py-1 sm:!py-1 cursor-pointer hover:font-bold hover:round-2xl md:!px-2" onClick = { () => isOpen(false)}>
         <i className="fa-solid fa-xmark !p-1 text-3xl hover:font-bold"></i></button>
       {/* body */}
-      <div className = "flex justify-start items-center gap-3  w-full ">
+      <div className = "flex  justify-start items-center gap-3 w-full flex-col sm:flex-row ">
         {/* sidebar */}
-          <div className = "flex flex-col justify-center !mb-auto !px-5 md:!px-0 items-start gap-10 sm:gap-2 md:gap-5  ">
+          <div className = "flex flex-row sm:flex-col justify-center !mb-auto !px-5 md:!px-0 items-start gap-10 sm:gap-2 md:gap-5  ">
             {setting.map((option, index) => (
-               <button key = { index } className = {` !py-3 !px-7 cursor-pointer hover:border-b md:!px-5 sm:!px-0 
+               <button key = { index } className = {` !py-3 !px-7 cursor-pointer hover:border-b md:!px-5 sm:!px-3 
                  ${settingMode === option.name ? "border-b": " " } `} 
                onClick={() => setSettingMode(option.name)} > 
                 {option.name} </button> 

@@ -88,9 +88,10 @@ function Pomodoro( { main}) {
               overflow: "hidden",
               }} alt = "background" >
       <div className = "flex flex-col justify-center items-center gap-10 w-full " >
-        <div className = "flex justify-center items-center sm:gap-5 md:gap-8 w-full h-auto   " >
+        <div className = "flex justify-center items-center sm:gap-5 md:gap-8 w-full h-auto gap-2   " >
           {timer.map((mode, index) => (
-            <button key = {index} className = { ` !py-3 !px-7 text-2xl border rounded-full bg-transparent mt-7  border-black hover:text-black hover:bg-white cursor-pointer
+            <button key = {index} className = { `!px-3 !py-1.5 sm:text-2xl sm:!py-2 md:!py-3 md:!px-7 md:text-3xl sm:!mr-5 sm: border rounded-full bg-transparent mt-7  border-black
+               hover:text-black hover:bg-white cursor-pointer  
                ${ selectMode === mode.name ? "bg-white text-black" : "bg-green "}`} 
               onClick = { () => {
                 setSelectMode( mode.name);             
@@ -103,10 +104,10 @@ function Pomodoro( { main}) {
           </button>
           ))}
         </div>
-          <h1 className = "sm:text-6xl md:text-8xl font-bold text-white"> {displayTime()} </h1>
-        <div className="flex flex-row justify-center items-center md:gap-15 sm:gap-7  ">
+          <h1 className = "text-5xl sm:text-7xl md:text-8xl font-bold text-white"> {displayTime()} </h1>
+        <div className="flex flex-row justify-center items-center md:gap-15 sm:gap-10  ">
           {choice.map((option, index) => (
-            <button key = {index} className = {` !px-6 !py-2 text-2xl  border rounded-full border-black 
+            <button key = {index} className = {` !px-3 !py-1.5 md:text-2xl sm:text-lg border rounded-full border-black !mr-3
                cursor-pointer ${option.option === "start" ? " hover:bg-transparent bg-white text-black hover:text-white " : "bg-green" }
                 ${option.option === "reset" ? "hover:bg-red-500 hover:text-white": "bg-black"}`} 
                onClick = { (e) => {

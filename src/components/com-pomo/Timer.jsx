@@ -14,7 +14,7 @@ function Timer({time,actualTime}) {
           {modes.map((mode, index) => (
           <div  key = {index} className = "flex flex-col justify-center items-start gap-3 text-left text-xl ">
             <label htmlFor={mode.name}>{mode.name}  </label>
-            <input type="number" min={1} max={59}  className="w-full border !px-1"
+            <input type="number" min={1} max={59}  className="w-full border !p-2 text-lg"
 
             value={calSecondToMin(actualTime[index])} onChange={(e) => { 
               console.log("time:" +calSecondToMin(actualTime[index]));
