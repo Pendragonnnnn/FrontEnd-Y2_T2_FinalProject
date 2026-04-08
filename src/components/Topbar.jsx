@@ -1,5 +1,5 @@
 import React from 'react'
-export default function Topbar({ search, onSearch, doneCount, total, onAdd, theme, onToggleTheme }) {
+export default function Topbar({ search, onSearch, onAdd, theme, onToggleTheme }) {
   return (
     <header className="topbar">
       <div className="logo">Scholar <span>— Smart Assignment Tracker</span></div>
@@ -9,7 +9,7 @@ export default function Topbar({ search, onSearch, doneCount, total, onAdd, them
       </div>
       <div className="topbar-right">
         <button className="theme-btn" onClick={onToggleTheme}>
-          {theme === 'dark' ? '☀' : '☽'}
+          {theme === 'dark' ? '☀' : '☾'}
         </button>
         <button className="add-btn" onClick={onAdd}>+ Add Assignment</button>
       </div>
