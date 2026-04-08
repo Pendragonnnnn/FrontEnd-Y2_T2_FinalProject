@@ -121,12 +121,12 @@ function Pomodoro( { main}) {
                         
           </button> ))}
 
-          <i className="fa-solid fa-gear text-3xl mt-2.5 cursor-pointer" onClick = { () => setSetting(true)}
+          <i className="fa-solid fa-gear text-3xl mt-2.5 cursor-pointer hover:text-white" onClick = { () => setSetting(true)}
           ></i>
           { isSetting && <Setting bg = {setIndexPic} isOpen={setSetting} newTime = {setTimer} currentTime = { timer} /> }
         </div>
       </div>
-    <i className="fa-solid fa-expand text-3xl  mt-2.5 cursor-pointer ml-auto" id = "fullscreen" onClick={fullScreen} ></i>
+    <i className="fa-solid fa-expand text-3xl  mt-2.5 cursor-pointer hover:text-white ml-auto" id = "fullscreen" onClick={fullScreen} ></i>
         </div>
     </>
   );
