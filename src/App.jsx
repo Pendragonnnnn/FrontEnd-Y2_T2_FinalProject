@@ -15,7 +15,7 @@ function loadPrem() {
 }
 
 export default function App() {
-  const { assignments, addAssignment, updateAssignment, deleteAssignment, toggleComplete, updateProgress, attachFile } = useAssignments()
+  const { assignments, addAssignment, updateAssignment, deleteAssignment, toggleComplete, updateProgress } = useAssignments()
   const pomodoro = usePomodoro()
 
   const [view, setView]                 = useState('list')
@@ -66,7 +66,7 @@ export default function App() {
               filterStatus={filterStatus} setFilterStatus={setFilterStatus}
               filterDiff={filterDiff}     setFilterDiff={setFilterDiff}
               onToggle={toggleComplete} onDelete={deleteAssignment}
-              onEdit={openEdit} onProgress={updateProgress} onAttach={attachFile}
+              onEdit={openEdit} onProgress={updateProgress}
               doneCount={doneCount} total={total} rate={rate}
             />
           )}

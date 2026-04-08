@@ -1,7 +1,7 @@
 import React from 'react'
 import { getPriority, countdownText, formatDate, DIFF_COLORS, PRIO_COLORS } from '../utils/helpers'
 
-export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEdit, onAttach }) {
+export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEdit }) {
   const prio      = getPriority(a.dueDate, a.completed)
   const prioColor = PRIO_COLORS[prio]
   const diffColor = DIFF_COLORS[a.difficulty]
@@ -24,11 +24,11 @@ export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEd
       <div className={`card-title ${a.completed ? 'struck' : ''}`}>{a.title}</div>
       <div className="card-countdown" style={{ color: prioColor }}>{countdownText(a.dueDate, a.completed)} · {formatDate(a.dueDate)}</div>
       
-      {a.files?.length > 0 && (
+      {/* {a.files?.length > 0 && (
         <div className="card-files">
           {a.files.map((f, i) => <span key={i} className="file-chip">📎 {f}</span>)}
         </div>
-      )}
+      )} */}
 
       <div className="card-footer">
         <button className={`complete-btn ${a.completed ? 'yes' : ''}`} onClick={() => onToggle(a.id)}>

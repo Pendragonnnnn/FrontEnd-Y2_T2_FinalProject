@@ -1,8 +1,9 @@
-export const SUBJECTS = [
-  'Math', 'Science', 'English', 'History',
-  'Computer Science', 'Physics', 'Chemistry',
-  'Biology', 'Art', 'Other',
-]
+
+export function getSubjects(assignments = []) {
+  return [...new Set(assignments.map(a => (a.subject || '').trim()))]
+    .filter(subject => subject.length > 0)
+    .sort()
+}
 
 export const DIFF_COLORS = {
   Easy: '#34d399',

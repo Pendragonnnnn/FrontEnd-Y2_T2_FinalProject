@@ -1,11 +1,11 @@
 import React from 'react'
 import AssignmentCard from './AssignmentCard'
-import { SUBJECTS, getPriority } from '../utils/helpers'
+import { getPriority, getSubjects } from '../utils/helpers'
 
 export default function ListView({
   assignments, search,
   filterSub, setFilterSub, filterStatus, setFilterStatus, filterDiff, setFilterDiff,
-  onToggle, onDelete, onEdit, onProgress, onAttach,
+  onToggle, onDelete, onEdit, onProgress,
 }) {
   const total     = assignments.length
   const doneCount = assignments.filter(a => a.completed).length
@@ -46,18 +46,32 @@ export default function ListView({
           </div>
         ))}
       </div>
-
-      {/* --- Overall Progress --- */}
       <div className="progress-overview">
-        <span className="progress-label">Overall Progress</span>
+        <div className="progress-header">
+          <span className="progress-label">Overall Progress</span>
+          <div className="prog-txt">
+            {doneCount} / {total} done
+          </div>
+        </div>
         <div className="prog-bar">
-        <div className="prog-bar-fill" style={{ width: `${rate}%` }}></div>
-      </div>
-      <div className="prog-txt">{doneCount} / {total} done</div>
+          <div className="prog-bar-fill" style={{ width: `${rate}%` }}></div>
+        </div>
       </div>
 
       {/* --- Filter Bar --- */}
       <div className="filter-bar">
+                <select
+          className="filter-select"
+          value={filterSub}
+          onChange={(e) => setFilterSub(e.target.value)}
+        >
+          <option value="All">All Subjects</option>
+          {getSubjects(assignments).map((subject) => (
+            <option key={subject} value={subject}>
+              {subject}
+            </option>
+          ))}
+        </select>
         <select className="filter-select" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="All">All Status</option>
           <option value="Active">Active</option>
@@ -84,7 +98,7 @@ export default function ListView({
           {filtered.map(a => (
             <AssignmentCard key={a.id} assignment={a}
               onToggle={onToggle} onDelete={onDelete} onEdit={onEdit}
-              onProgress={onProgress} onAttach={onAttach} />
+              onProgress={onProgress} />
           ))}
         </div>
       )}
