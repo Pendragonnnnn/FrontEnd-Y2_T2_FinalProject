@@ -5,7 +5,7 @@ export default function AddModal({ initial, onClose, onSave }) {
   const today = new Date().toISOString().split('T')[0]
   const [form, setForm] = useState({
     title:      initial?.title      || '',
-    subject:    initial?.subject    || 'Math',
+    subject:    initial?.subject    || '',
     dueDate:    initial?.dueDate    || today,
     difficulty: initial?.difficulty || 'Medium',
     schedule:   initial?.schedule   || '',
@@ -23,17 +23,19 @@ export default function AddModal({ initial, onClose, onSave }) {
 
         <div className="form-field">
           <label className="form-label">Assignment Title *</label>
-          <input className="form-input" placeholder="e.g. Chapter 5 Essay" value={form.title}
+          <input className="form-input" placeholder="Please Enter Your Assignment Title" value={form.title}
             onChange={e => upd('title', e.target.value)} autoFocus />
         </div>
 
         <div className="form-row">
           <div className="form-field">
             <label className="form-label">Subject</label>
-            <select className="form-input" value={form.subject} onChange={e => upd('subject', e.target.value)}>
-              {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
-            </select>
-          </div>
+            <input
+              className="form-input" type="text" placeholder="Please Enter Your SUBJECT"
+              value={form.subject}
+              onChange={e => upd('subject', e.target.value)}
+          />
+        </div>  
           <div className="form-field">
             <label className="form-label">Due Date *</label>
             <input className="form-input" type="date" value={form.dueDate} onChange={e => upd('dueDate', e.target.value)} />

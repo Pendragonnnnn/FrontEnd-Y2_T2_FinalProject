@@ -6,8 +6,11 @@ export default function ListView({
   assignments, search,
   filterSub, setFilterSub, filterStatus, setFilterStatus, filterDiff, setFilterDiff,
   onToggle, onDelete, onEdit, onProgress, onAttach,
-  doneCount, total, rate,
 }) {
+  const total     = assignments.length
+  const doneCount = assignments.filter(a => a.completed).length
+  const rate      = total > 0 ? Math.round((doneCount / total) * 100) : 0
+
   const q = search.toLowerCase()
   const filtered = assignments
     .filter(a => {
@@ -29,17 +32,32 @@ export default function ListView({
 
   return (
     <div className="list-wrap">
-      <div className="progress-overview">
-        <span className="progress-label">Overall Progress</span>
-        <div className="prog-bar"><div className="prog-bar-fill" style={{ width: `${rate}%` }} /></div>
-        <div className="prog-txt">{doneCount} / {total} done</div>
+
+      {/* --- Stats Boxes --- */}
+      <div className="stats-grid">
+        {[
+          [total,      'Total',           'var(--text)'],
+          [doneCount,  'Completed',       '#34d399'],
+          [rate + '%', 'Completion Rate', '#daa84a'],
+        ].map(([val, label, color]) => (
+          <div key={label} className="stat-card">
+            <div className="stat-val" style={{ color }}>{val}</div>
+            <div className="stat-label">{label}</div>
+          </div>
+        ))}
       </div>
 
+      {/* --- Overall Progress --- */}
+      <div className="progress-overview">
+        <span className="progress-label">Overall Progress</span>
+        <div className="prog-bar">
+        <div className="prog-bar-fill" style={{ width: `${rate}%` }}></div>
+      </div>
+      <div className="prog-txt">{doneCount} / {total} done</div>
+      </div>
+
+      {/* --- Filter Bar --- */}
       <div className="filter-bar">
-        <select className="filter-select" value={filterSub}    onChange={e => setFilterSub(e.target.value)}>
-          <option value="All">All Subjects</option>
-          {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
-        </select>
         <select className="filter-select" value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
           <option value="All">All Status</option>
           <option value="Active">Active</option>
@@ -52,9 +70,9 @@ export default function ListView({
           <option value="Medium">Medium</option>
           <option value="Hard">Hard</option>
         </select>
-        <span className="filter-count">{filtered.length} result{filtered.length !== 1 ? 's' : ''}</span>
       </div>
 
+      {/* --- Assignment Cards --- */}
       {filtered.length === 0 ? (
         <div className="empty">
           <div className="empty-ic">📚</div>
