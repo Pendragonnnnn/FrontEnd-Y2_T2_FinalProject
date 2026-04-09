@@ -18,7 +18,7 @@ export function useAssignments() {
   }, [])
 
   const addAssignment = data =>
-    setAssignments(prev => [{ id: Date.now().toString(), ...data, completed: false, files: [], createdAt: new Date().toISOString() }, ...prev])
+    setAssignments(prev => [{ id: Date.now().toString(), ...data, completed: false, createdAt: new Date().toISOString() }, ...prev])
 
   const updateAssignment = (id, data) =>
     setAssignments(prev => prev.map(a => a.id === id ? { ...a, ...data } : a))
@@ -28,9 +28,6 @@ export function useAssignments() {
 
   const toggleComplete = id =>
     setAssignments(prev => prev.map(a => a.id === id ? { ...a, completed: !a.completed} : a))
-
-  const attachFile = (id, fileName) =>
-    setAssignments(prev => prev.map(a => a.id === id ? { ...a, files: [...(a.files || []), fileName] } : a))
 
   return { assignments, addAssignment, updateAssignment, deleteAssignment, toggleComplete}
 }
