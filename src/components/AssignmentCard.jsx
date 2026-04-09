@@ -24,11 +24,7 @@ export default function AssignmentCard({ assignment: a, onToggle, onDelete, onEd
       <div className={`card-title ${a.completed ? 'struck' : ''}`}>{a.title}</div>
       <div className="card-countdown" style={{ color: prioColor }}>{countdownText(a.dueDate, a.completed)} · {formatDate(a.dueDate)}</div>
       
-      {a.files?.length > 0 && (
-        <div className="card-files">
-          {a.files.map((f, i) => <span key={i} className="file-chip">📎 {f}</span>)}
-        </div>
-      )}
+
 
       <div className="card-footer">
         <button className={`complete-btn ${a.completed ? 'yes' : ''}`} onClick={() => onToggle(a.id)}>
