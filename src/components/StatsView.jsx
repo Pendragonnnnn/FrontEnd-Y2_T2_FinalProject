@@ -29,15 +29,13 @@ export default function StatsView({ assignments }) {
   const done = assignments.filter(a => a.completed).length
   const active = total - done
   const rate = total ? Math.round((done / total) * 100) : 0
-  const { subjects, removeSubject } = useSubjects()
+  const { subjects} = useSubjects()
 
   const subData = subjects.map(s => {
     const totalSub = assignments.filter(a => a.subject === s).length
     const doneSub = assignments.filter(a => a.subject === s && a.completed).length
     return { name: s, total: totalSub, done: doneSub }
   }).filter(d => d.total > 0)
-
-  const removableSubjects = subjects.filter(s => !DEFAULT_SUBJECTS.includes(s))
 
   const diffCounts = {
     Easy: { total: assignments.filter(a => a.difficulty === 'Easy').length, done: assignments.filter(a => a.difficulty === 'Easy' && a.completed).length, color: '#34d399' },
@@ -89,7 +87,7 @@ export default function StatsView({ assignments }) {
       <div className="sv-card">
         <div className="sv-card-title">Difficulty Breakdown</div>
         <div className="sv-diff-row">
-          {Object.entries(diffCounts).map(([name,{total:t,color}])=>t>0 && <div key={name} className="sv-diff-seg" style={{flex:t,background:color}}>{t>1?t:0}</div>)}
+          {Object.entries(diffCounts).map(([name,{total:t,color}])=>t>0 && <div key={name} className="sv-diff-seg" style={{flex:t,background:color}}>{t}</div>)}
         </div>
       </div>
 
