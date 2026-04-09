@@ -38,10 +38,19 @@ export default function StatsView({ assignments }) {
   }).filter(d => d.total > 0)
 
   const diffCounts = {
-    Easy: { total: assignments.filter(a => a.difficulty === 'Easy').length, done: assignments.filter(a => a.difficulty === 'Easy' && a.completed).length, color: '#34d399' },
-    Medium: { total: assignments.filter(a => a.difficulty === 'Medium').length, done: assignments.filter(a => a.difficulty === 'Medium' && a.completed).length, color: '#fb923c' },
-    Hard: { total: assignments.filter(a => a.difficulty === 'Hard').length, done: assignments.filter(a => a.difficulty === 'Hard' && a.completed).length, color: '#f43f5e' },
-  }
+  Easy: {
+    total: assignments.filter(a => a.difficulty === 'Easy' && !a.completed).length,
+    color: '#34d399'
+  },
+  Medium: {
+    total: assignments.filter(a => a.difficulty === 'Medium' && !a.completed).length,
+    color: '#fb923c'
+  },
+  Hard: {
+    total: assignments.filter(a => a.difficulty === 'Hard' && !a.completed).length,
+    color: '#f43f5e'
+  },
+}
 
   const prioCounts = {
     overdue: { label: 'Overdue', color: '#5b0202', bg: '#5b020220' },
