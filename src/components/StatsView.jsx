@@ -6,7 +6,7 @@ import { useSubjects } from '../utils/useSubjects'
 function Donut({ pct, color, size = 130 }) {
   const r = 46
   const circ = 2 * Math.PI * r
-  const dash = circ - (pct / 100) * circ
+  const dash = circ - (pct / 100) * circ  
 
   return (
     <div className="sv-donut-wrap" style={{ width: size, height: size }}>

@@ -57,7 +57,7 @@ export default function AddModal({
         </div>
 
         <div className="form-field">
-          <label>Assignment Title *</label>
+          <label>Assignment Title </label>
           <input
             className="form-input"
             value={form.title}
@@ -67,7 +67,7 @@ export default function AddModal({
         </div>
 
         <div className="form-field">
-          <label>Subject *</label>
+          <label>Subject</label>
           <select
             className="form-input"
             value={form.subject}
@@ -112,7 +112,7 @@ export default function AddModal({
         </div>
 
         <div className="form-field">
-          <label>Due Date *</label>
+          <label>Due Date </label>
           <input
             className="form-input"
             type="date"
